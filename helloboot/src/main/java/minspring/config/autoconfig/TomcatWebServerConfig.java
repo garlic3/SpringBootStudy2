@@ -15,15 +15,13 @@ import org.springframework.util.ClassUtils;
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
 public class TomcatWebServerConfig {
 
-    @Value("${contextPath}")
-    String contextPath;
-
     @Bean("tomcatServerFactory")
     @ConditionalOnMissingBean
-    public ServletWebServerFactory servletWebServerFactory(){
-
+    public ServletWebServerFactory servletWebServerFactory(ServerProperties properties){
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-        factory.setContextPath(this.contextPath);
+        factory.setContextPath(properties.getContextPath());
+        factory.setPort(properties.getPort());
+
         return factory;
     }
 
