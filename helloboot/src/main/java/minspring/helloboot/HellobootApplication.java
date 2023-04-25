@@ -10,9 +10,11 @@ public class HellobootApplication {
 		SpringApplication.run(HellobootApplication.class, args);
 
 		// 사용자 구성정보 (Component Scan)
-		// SimpleHelloService, HelloController
+		// SimpleHelloService, HelloController, HelloDecorator
+
 		// 자동 구성정보 (Auto Configuration)
-		// TomcatServletWebServletFactory, DispatcherServlet
+		// TomcatServletWebServletFactory, DispatcherServlet (MyAutoConfiguration.imports)
+
 
 	}
 
