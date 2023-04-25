@@ -12,21 +12,30 @@ public class HellobootApplication {
 
 	public static void main(String[] args) {
 		// 스프링 컨테이너
-		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
+		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
+			@Override
+			protected void onRefresh() {
+				super.onRefresh();
+
+				ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+				WebServer webServer = serverFactory.getWebServer(servletContext -> {
+					// 서블릿 등록
+					servletContext.addServlet("dispatcherServlet",new DispatcherServlet(this)).addMapping("/*"); // 서블릿 매핑
+
+				});
+				// 톰캣 서블릿 컨테이너 시작
+				webServer.start();
+			}
+		};
+
 		// 메타정보를 통해 빈 등록
 		applicationContext.registerBean(HelloController.class);
 		applicationContext.registerBean(SimpleHelloService.class);
-		// 초기화
+		// 스프링 컨테이너 초기화
 		applicationContext.refresh();
 
-		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
-		WebServer webServer = serverFactory.getWebServer(servletContext -> {
-			// 서블릿 등록
-			servletContext.addServlet("dispatcherServlet",new DispatcherServlet(applicationContext)).addMapping("/*"); // 서블릿 매핑
 
-		});
-		// 톰캣 서블릿 컨테이너 시작
-		webServer.start();
+
 
 	}
 
