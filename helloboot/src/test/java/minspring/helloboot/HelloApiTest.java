@@ -23,7 +23,19 @@ public class HelloApiTest {
         // Header(Content-type) : text/plain
         assertThat(res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).startsWith(MediaType.TEXT_PLAIN_VALUE);
         // body Hello spring
-        assertThat(res.getBody()).isEqualTo("Hello spring");
+        assertThat(res.getBody()).isEqualTo("*Hello spring*");
+
+    }
+
+    @Test
+    void failHelloApi(){
+        TestRestTemplate rest = new TestRestTemplate();
+
+        ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+
+        // INTERNAL_SERVER_ERROR : 버그, 서버에 심각한 에러
+        // status code 200
+        assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 }
