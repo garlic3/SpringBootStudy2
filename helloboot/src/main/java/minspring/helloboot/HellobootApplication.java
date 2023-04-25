@@ -20,17 +20,21 @@ public class HellobootApplication {
 	public static void main(String[] args) {
 		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer(servletContext -> {
+			HelloController helloController = new HelloController();
 			// 서블릿 등록
 			servletContext.addServlet("frontController", new HttpServlet() {
 				@Override
 				protected void service(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+					// 매핑
 					if (req.getRequestURI().equals("/hello") && req .getMethod().equals(HttpMethod.GET.name())) {
+						// 바인딩
 						String name = req.getParameter("name");
 
+						String ret = helloController.hello(name);
 						// 응답 생성
 						resp.setStatus(HttpStatus.OK.value());
 						resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-						resp.getWriter().println("Hello " + name);
+						resp.getWriter().println(ret);
 					}
 					else {
 						resp.setStatus(HttpStatus.NOT_FOUND.value());
