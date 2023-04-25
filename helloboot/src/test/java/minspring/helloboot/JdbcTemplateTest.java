@@ -39,4 +39,5 @@ public class JdbcTemplateTest {
         assertThat(count).isEqualTo(2);
 
     }
+
 }
