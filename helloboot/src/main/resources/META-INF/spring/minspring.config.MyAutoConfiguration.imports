@@ -1,3 +1,4 @@
 minspring.config.autoconfig.TomcatWebServerConfig
 minspring.config.autoconfig.DispatcherServletConfig
 minspring.config.autoconfig.JettyWebServerConfig
+minspring.config.autoconfig.PropertyPlaceHolderConfig
