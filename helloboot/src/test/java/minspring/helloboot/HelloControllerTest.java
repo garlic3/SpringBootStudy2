@@ -7,17 +7,7 @@ public class HelloControllerTest {
 
     @Test
     void helloController(){
-        HelloController helloController = new HelloController(new HelloService() {
-            @Override
-            public String sayHello(String name) {
-                return name;
-            }
-
-            @Override
-            public int countOf(String name) {
-                return 0;
-            }
-        });
+        HelloController helloController = new HelloController(name -> name);
         String ret = helloController.hello("Test");
         Assertions.assertThat(ret).isEqualTo("Test");
 
@@ -25,17 +15,7 @@ public class HelloControllerTest {
 
     @Test
     void failsHelloController(){
-        HelloController helloController = new HelloController(new HelloService() {
-            @Override
-            public String sayHello(String name) {
-                return name;
-            }
-
-            @Override
-            public int countOf(String name) {
-                return 0;
-            }
-        });
+        HelloController helloController = new HelloController(name -> name);
 
         // null 값 테스트
         Assertions.assertThatThrownBy(() -> {

@@ -1,8 +1,0 @@
-minspring.config.autoconfig.DataSourceConfig
-minspring.config.autoconfig.PropetyPostProcessConfig
-minspring.config.autoconfig.PropertyPlaceHolderConfig
-minspring.config.autoconfig.TomcatWebServerConfig
-minspring.config.autoconfig.JettyWebServerConfig
-minspring.config.autoconfig.DispatcherServletConfig
-
-
