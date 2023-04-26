@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-@RequestMapping("/hello")
 @RestController
 public class HelloController  {
 
@@ -19,7 +18,7 @@ public class HelloController  {
         this.helloService = helloService;
     }
 
-    @GetMapping
+    @GetMapping("/hello")
     public String hello(String name) {
 //        return helloService.sayHello(Objects.requireNonNull(name));
 
@@ -34,5 +33,11 @@ public class HelloController  {
     // Content-Type : text/plain;charset=UTF-8
     // content : Hello spring
 
+
+    @GetMapping("/count")
+    public String count(String name){
+        System.out.println("test>>>>>>>>>>>>");
+        return " name: " + helloService.countOf(name);
+    }
 
 }

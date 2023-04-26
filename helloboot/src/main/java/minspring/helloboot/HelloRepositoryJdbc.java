@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HelloRepositoryJdbc implements HelloRepository{
+public class HelloRepositoryJdbc implements HelloRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public HelloRepositoryJdbc(JdbcTemplate jdbcTemplate) {
@@ -17,7 +17,7 @@ public class HelloRepositoryJdbc implements HelloRepository{
         try {
             return jdbcTemplate.queryForObject("select * from hello where name ='" + name + "'", (rs, rowNum) -> new Hello(rs.getString("name"), rs.getInt("count")));
         } catch (DataAccessException e) {
-            return  null;
+            return null;
         }
 
     }
@@ -25,11 +25,11 @@ public class HelloRepositoryJdbc implements HelloRepository{
     @Override
     public void increaseCount(String name) {
         Hello hello = findHello(name);
-        if(hello == null){
+        if (hello == null) {
             jdbcTemplate.update("insert into hello values(?, ?)", name, 1);
 
-        }else{
-            jdbcTemplate.update("update hello set count = ? where name = ?", hello.getCount()+1, name);
+        } else {
+            jdbcTemplate.update("update hello set count = ? where name = ?", hello.getCount() + 1, name);
         }
 
     }
